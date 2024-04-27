@@ -9,9 +9,3 @@ COPY extra-packages /
 RUN dnf update && \
     grep -v '^#' /extra-packages | xargs dnf install -y
 RUN rm /extra-packages
-
-RUN   ln -fs /bin/sh /usr/bin/sh && \
-      ln -fs /usr/bin/distrobox-host-exec /usr/local/bin/flatpak && \ 
-      ln -fs /usr/bin/distrobox-host-exec /usr/local/bin/podman && \
-      ln -fs /usr/bin/distrobox-host-exec /usr/local/bin/rpm-ostree
-     
