@@ -3,7 +3,9 @@ git
 just
 make
 ncurses
-neofetch
+fastfetch
 vim
 python3
 zstd
+yt-dlp
+icecat
