@@ -6,7 +6,7 @@ LABEL com.github.containers.toolbox="true" \
       maintainer="Adderflight"
 
 COPY extra-packages /
-RUN dnf update && \
+RUN dnf update -y && \
     grep -v '^#' /extra-packages | xargs dnf install -y
 RUN rm /extra-packages
 
