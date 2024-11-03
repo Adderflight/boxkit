@@ -1,11 +1,14 @@
-ffmpeg-free
+ffmpeg
 git
 just
 make
+cmake
 ncurses
 fastfetch
-vim
+nano
 python3
 zstd
 yt-dlp
-icecat
+chromium
+nmap
+bash-language-server
