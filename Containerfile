@@ -10,6 +10,8 @@ RUN dnf update -y && \
     grep -v '^#' /extra-packages | xargs dnf install -y
 RUN rm /extra-packages
 
+RUN ln -fs /usr/bin/distrobox-host-exec /usr/bin/kate
+
 #RUN   ln -fs /bin/sh /usr/bin/sh && \
 #      ln -fs /usr/bin/distrobox-host-exec /usr/local/bin/docker && \
 #      ln -fs /usr/bin/distrobox-host-exec /usr/local/bin/flatpak && \
