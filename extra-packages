@@ -10,6 +10,6 @@ python3
 zstd
 yt-dlp
 chromium
-nmap
 sdrpp
-solaar
+nmap
+httrack
