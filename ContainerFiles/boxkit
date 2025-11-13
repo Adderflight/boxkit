@@ -1,0 +1,15 @@
+FROM ghcr.io/ublue-os/fedora-toolbox:latest
+
+LABEL com.github.containers.toolbox="true" \
+      usage="This image is meant to be used with the toolbox or distrobox command" \
+      summary="customized ublue-os fedora toolbox image" \
+      maintainer="Adderflight"
+
+COPY ../packages/boxkit.packages /
+RUN dnf update -y && \
+    grep -v '^#' /boxkit.packages | xargs dnf install -y
+RUN rm /boxkit.packages
+
+RUN ln -fs /usr/bin/distrobox-host-exec /usr/bin/kate
+RUN ln -fs /usr/bin/distrobox-host-exec /usr/bin/podman
+RUN ln -fs /usr/bin/distrobox-host-exec /usr/bin/flatpak

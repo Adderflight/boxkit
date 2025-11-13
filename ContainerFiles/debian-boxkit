@@ -1,0 +1,15 @@
+FROM ghcr.io/ublue-os/debian-toolbox:latest
+
+LABEL com.github.containers.toolbox="true" \
+      usage="This image is meant to be used with the toolbox or distrobox command" \
+      summary="customized ublue-os debian toolbox image" \
+      maintainer="Adderflight"
+
+COPY ../packages/debian-boxkit.packages /
+RUN apt update -y && \
+    grep -v '^#' /debian-boxkit.packages | xargs apt install -y
+RUN rm /debian-boxkit.packages
+
+RUN ln -fs /usr/bin/distrobox-host-exec /usr/bin/kate
+RUN ln -fs /usr/bin/distrobox-host-exec /usr/bin/podman
+RUN ln -fs /usr/bin/distrobox-host-exec /usr/bin/flatpak
