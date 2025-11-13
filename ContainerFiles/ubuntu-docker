@@ -5,10 +5,5 @@ LABEL com.github.containers.toolbox="true" \
       summary="customized ublue docker-distrobox image" \
       maintainer="Adderflight"
 
-COPY ../packages/ubuntu-docker.packages /
-RUN apt update -y && \
-    grep -v '^#' /ubuntu-docker.packages | xargs apt install -y
-RUN rm /ubuntu-docker.packages
-
 RUN ln -fs /usr/bin/distrobox-host-exec /usr/bin/kate
 RUN ln -fs /usr/bin/distrobox-host-exec /usr/bin/flatpak
