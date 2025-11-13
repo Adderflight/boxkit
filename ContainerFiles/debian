@@ -5,10 +5,10 @@ LABEL com.github.containers.toolbox="true" \
       summary="customized ublue-os debian toolbox image" \
       maintainer="Adderflight"
 
-COPY ../packages/debian-boxkit.packages /
+COPY ../packages/debian.packages /
 RUN apt update -y && \
-    grep -v '^#' /debian-boxkit.packages | xargs apt install -y
-RUN rm /debian-boxkit.packages
+    grep -v '^#' /debian.packages | xargs apt install -y
+RUN rm /debian.packages
 
 RUN ln -fs /usr/bin/distrobox-host-exec /usr/bin/kate
 RUN ln -fs /usr/bin/distrobox-host-exec /usr/bin/podman
