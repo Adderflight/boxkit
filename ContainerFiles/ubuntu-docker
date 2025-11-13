@@ -1,0 +1,14 @@
+FROM ghcr.io/ublue-os/docker-distrobox:latest
+
+LABEL com.github.containers.toolbox="true" \
+      usage="This image is meant to be used with the toolbox or distrobox command" \
+      summary="customized ublue docker-distrobox image" \
+      maintainer="Adderflight"
+
+COPY ../packages/ubuntu-docker.packages /
+RUN apt update -y && \
+    grep -v '^#' /ubuntu-docker.packages | xargs apt install -y
+RUN rm /ubuntu-docker.packages
+
+RUN ln -fs /usr/bin/distrobox-host-exec /usr/bin/kate
+RUN ln -fs /usr/bin/distrobox-host-exec /usr/bin/flatpak

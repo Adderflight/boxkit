@@ -30,6 +30,7 @@ jobs:
         containerfile:
           - boxkit
           - debian
+          - ubuntu-docker
     steps:
       # Clone code to runner
       - name: Checkout
