@@ -1,15 +1,27 @@
-FROM ghcr.io/ublue-os/debian-toolbox:latest
+FROM docker.io/library/debian:trixie@sha256:01a723bf5bfb21b9dda0c9a33e0538106e4d02cce8f557e118dd61259553d598
 
 LABEL com.github.containers.toolbox="true" \
-      usage="This image is meant to be used with the toolbox or distrobox command" \
-      summary="customized ublue-os debian toolbox image" \
-      maintainer="Adderflight"
+  name="debian-toolbox" \
+  usage="This image is meant to be used with the toolbox or distrobox command" \
+  summary="A cloud-native terminal experience powered by Debian" \
+  maintainer="justin@linux.com"
 
-COPY ../packages/debian.packages /
-RUN apt update -y && \
-    grep -v '^#' /debian.packages | xargs apt install -y
-RUN rm /debian.packages
+COPY ../packages/debian.packages /toolbox-packages
 
-RUN ln -fs /usr/bin/distrobox-host-exec /usr/bin/kate
-RUN ln -fs /usr/bin/distrobox-host-exec /usr/bin/podman
-RUN ln -fs /usr/bin/distrobox-host-exec /usr/bin/flatpak
+RUN rm /etc/apt/apt.conf.d/docker-gzip-indexes /etc/apt/apt.conf.d/docker-no-languages && \
+  sed -Ei 's/^(hosts:.*)(\<files\>)\s*(.*)/\1\2 myhostname \3/' /etc/nsswitch.conf && \
+  apt-get update && \
+  DEBIAN_FRONTEND=noninteractive apt-get -y install \
+  libnss-myhostname \
+  flatpak-xdg-utils \
+  $(cat toolbox-packages | xargs) && \
+  rm -rd /var/lib/apt/lists/* && \
+  rm /toolbox-packages && \
+  mkdir /usr/share/empty && \
+  curl -sLo /usr/bin/host-spawn https://github.com/1player/host-spawn/releases/download/1.5.0/host-spawn-x86_64 && \
+  chmod +x /usr/bin/host-spawn && \
+  ln -fs /usr/bin/distrobox-host-exec /usr/bin/kate && \
+  ln -fs /usr/bin/distrobox-host-exec /usr/bin/podman && \
+  ln -fs /usr/bin/distrobox-host-exec /usr/bin/flatpak && \
+  echo "ALL ALL = (ALL) NOPASSWD: ALL" >> /etc/sudoers
+
