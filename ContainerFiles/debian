@@ -4,7 +4,7 @@ LABEL com.github.containers.toolbox="true" \
   name="debian-toolbox" \
   usage="This image is meant to be used with the toolbox or distrobox command" \
   summary="A cloud-native terminal experience powered by Debian" \
-  maintainer="justin@linux.com"
+  maintainer="adderflight"
 
 COPY ../packages/debian.packages /toolbox-packages
 
